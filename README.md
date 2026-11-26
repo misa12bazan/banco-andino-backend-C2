@@ -36,7 +36,7 @@ Para probarlo, pon `HORA_SIMULADA=3` en `.env` (y déjalo vacío al terminar).
 `admin@correo.com` · `empleado1@correo.com` (mañana) · `empleado2@correo.com` (tarde) · `cliente1@correo.com` … `cliente10@correo.com`
 
 ## Variables de entorno
-`DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGINS`, `PORT`, `HORA_SIMULADA`. Nunca subas el archivo `.env` a GitHub.
+`DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGINS`, `PORT`, `HORA_SIMULADA`. 
 
 ## Despliegue en Render
-Web Service · Runtime Node · Build `npm install` · Start `npm start` · Plan **Free** · añade las variables de entorno de arriba (en `CORS_ORIGINS` pon el link de Vercel).
+Web Service · Runtime Node · Build `npm install` · Start `npm start` · Plan **Free** ·

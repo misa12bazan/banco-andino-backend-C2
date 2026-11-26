@@ -3,7 +3,7 @@ import { HttpError } from '../utils/errores.js';
 import { validarSolicitud, idValido } from '../utils/validaciones.js';
 import * as repo from '../repositories/solicitudes.repository.js';
 
-const generarCodigo = () =>
+export const generarCodigo = () =>
   'COD-' + Date.now().toString().slice(-6) + String(Math.floor(Math.random() * 100)).padStart(2, '0');
 
 function leerId(idTexto) {

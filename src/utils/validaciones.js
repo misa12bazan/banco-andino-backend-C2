@@ -50,3 +50,42 @@ export function idValido(valor) {
   const n = Number(valor);
   return Number.isInteger(n) && n > 0 ? n : null;
 }
+
+// ---------- Pago con tarjeta (simulado) ----------
+export const limpiarNumero = v => String(v ?? '').replace(/[\s-]/g, '');
+
+// Algoritmo de Luhn: comprueba que el número de tarjeta sea válido
+export function luhn(numero) {
+  let suma = 0, alternar = false;
+  for (let i = numero.length - 1; i >= 0; i--) {
+    let n = Number(numero[i]);
+    if (alternar) { n *= 2; if (n > 9) n -= 9; }
+    suma += n;
+    alternar = !alternar;
+  }
+  return suma % 10 === 0;
+}
+
+export function marcaTarjeta(numero) {
+  if (/^4/.test(numero)) return 'Visa';
+  if (/^(5[1-5]|2(2[2-9]|[3-6]\d|7[01]|720))/.test(numero)) return 'Mastercard';
+  if (/^3[47]/.test(numero)) return 'Amex';
+  return 'Tarjeta';
+}
+
+export function validarPago(d = {}) {
+  const e = [];
+  if (idValido(d.id_producto) === null) e.push('Debes elegir un plan de tarjeta');
+  if (vacio(d.titular)) e.push('El nombre del titular es obligatorio');
+  const num = limpiarNumero(d.numero_tarjeta);
+  if (!/^\d{13,19}$/.test(num) || !luhn(num)) e.push('El número de tarjeta no es válido');
+  const m = /^(0[1-9]|1[0-2])\/(\d{2})$/.exec(String(d.vencimiento ?? ''));
+  if (!m) e.push('El vencimiento debe tener el formato MM/AA');
+  else {
+    const hoy = new Date();
+    const anio = 2000 + Number(m[2]), mes = Number(m[1]);
+    if (anio < hoy.getFullYear() || (anio === hoy.getFullYear() && mes < hoy.getMonth() + 1)) e.push('La tarjeta está vencida');
+  }
+  if (!/^\d{3,4}$/.test(String(d.cvv ?? ''))) e.push('El CVV debe tener 3 o 4 dígitos');
+  return e;
+}

@@ -22,6 +22,8 @@ API REST por capas del proyecto Banco Andino Perú (Consolidado 2, semanas 13 a 
 | GET | /api/auth/perfil | token | 200 · 401 |
 | GET | /api/productos?categoria=tarjeta | público | 200 |
 | GET | /api/productos/:id | público | 200 · 404 |
+| POST | /api/pagos | cliente | 201 pago aprobado y solicitud creada · 400 tarjeta inválida · 401 · 403 · 404 plan inexistente |
+| GET | /api/pagos/mios | cliente | 200 · 401 · 403 |
 | POST / PUT / DELETE | /api/productos(/:id) | administrador, empleado | 201/200 · 400 · 401 · 403 · 404 |
 | GET / POST | /api/clientes | administrador, empleado | 200/201 · 400 · 401 · 403 |
 | GET / GET:id / POST / PUT / DELETE | /api/solicitudes | administrador, empleado | 200/201 · 400 · 401 · 403 · 404 |
